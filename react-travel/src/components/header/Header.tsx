@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
                 <div className={styles.inner}>
                     <Typography.Text>让旅游更幸福</Typography.Text>
                     <Dropdown.Button
-                        style={{ marginLeft: 90 }}
+                        style={{ marginLeft: 90, marginTop: -20 }}
                         overlay={
                             <Menu
                                 items={[

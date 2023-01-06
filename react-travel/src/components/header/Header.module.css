@@ -9,22 +9,18 @@
     padding-right: 4%;
     display: block;
     background-color: #f5f5f5;
-    line-height: 40px;
+    line-height: 10px;
   }
   
   .top-header .inner {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    position:relative;
-    top:-13px;
-    left:30px;
-    
   }
   
   .button-group {
     float: right;
-    margin-top: -60px;
+    margin-top: -30px;
   }
   
   .main-header {
