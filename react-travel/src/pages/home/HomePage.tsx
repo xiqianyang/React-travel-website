@@ -6,9 +6,9 @@ import sideImage from '../../assets/images/sider_2019_12-09.png';
 import sideImage2 from '../../assets/images/sider_2019_02-04.png';
 import sideImage3 from '../../assets/images/sider_2019_02-04-2.png';
 import styles from "./HomePage.module.css"
-
-export class HomePage extends React.Component {
-    render() {
+import { withRouter, RouteComponentProps } from "../../helpers/withRouter";
+class HomePageComponent extends React.Component<RouteComponentProps> {
+    render(): React.ReactNode {
         return <>
 
             <Header />
@@ -58,3 +58,5 @@ export class HomePage extends React.Component {
     }
 
 }
+
+export const HomePage = withRouter(HomePageComponent)
