@@ -1,6 +1,8 @@
 import { createStore } from 'redux';
-import languageReucer from './languageReucer';
+import languageReducer from "./language/languageReducer";
 
-const store = createStore(languageReucer);
+const store = createStore(languageReducer);
+
+export type RootState = ReturnType<typeof store.getState>
 
 export default store;
