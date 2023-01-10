@@ -3,7 +3,7 @@ import styles from "./Header.module.css";
 import logo from "../../assets/logo.svg";
 import { Layout, Typography, Input, Menu, Button, Dropdown } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
-import { useNavigate, useLocation, useParams, } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 
 export const Header: React.FC = () => {
     const navigate = useNavigate();
@@ -17,7 +17,7 @@ export const Header: React.FC = () => {
                 <div className={styles.inner}>
                     <Typography.Text>让旅游更幸福</Typography.Text>
                     <Dropdown.Button
-                        style={{ marginLeft: 90, marginTop: -20 }}
+                        style={{ marginLeft: 15 }}
                         overlay={
                             <Menu
                                 items={[
@@ -31,8 +31,8 @@ export const Header: React.FC = () => {
                         语言
                     </Dropdown.Button>
                     <Button.Group className={styles["button-group"]}>
-                        <Button onClick={() => navigate("register")}>注册</Button>
-                        <Button onClick={() => navigate("signIn")}>登陆</Button>
+                        <Button onClick={() => navigate("/register")}>注册</Button>
+                        <Button onClick={() => navigate("/signin")}>登陆</Button>
                     </Button.Group>
                 </div>
             </div>
@@ -43,7 +43,6 @@ export const Header: React.FC = () => {
                         React旅游网
                     </Typography.Title>
                 </span>
-
                 <Input.Search
                     placeholder={"请输入旅游目的地、主题、或关键字"}
                     className={styles["search-input"]}
