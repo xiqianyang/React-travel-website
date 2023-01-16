@@ -3,22 +3,25 @@ import styles from "./Header.module.css";
 import logo from "../../assets/logo.svg";
 import { Layout, Typography, Input, Menu, Button, Dropdown } from "antd";
 import { GlobalOutlined } from "@ant-design/icons";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { withRouter, RouteComponentProps } from "../../helpers/withRouter";
-import { RootState } from "../../redux/store";
+import store from "../../redux/store";
+import { LanguageState } from "../../redux/language/languageReducer";
 import { withTranslation, WithTranslation } from "react-i18next";
 import {
-    addLanguageActionCreator, changeLanguageActionCreator
+    addLanguageActionCreator,
+    changeLanguageActionCreator,
 } from "../../redux/language/languageActions";
-import { connect } from "react-redux/es/exports";
+import { connect } from "react-redux";
 import { Dispatch } from "redux";
-
+import { RootState } from "../../redux/store";
 
 const mapStateToProps = (state: RootState) => {
     return {
         language: state.language,
         languageList: state.languageList,
-    }
-}
+    };
+};
 
 const mapDispatchToProps = (dispatch: Dispatch) => {
     return {
@@ -27,29 +30,35 @@ const mapDispatchToProps = (dispatch: Dispatch) => {
             dispatch(action);
         },
         addLanguage: (name: string, code: string) => {
-            const acation = addLanguageActionCreator(name, code);
-            dispatch(acation);
+            const action = addLanguageActionCreator(name, code);
+            dispatch(action);
         },
     };
-
 };
 
-type PropsType = RouteComponentProps &//react-router 路由props类型
-    WithTranslation & //i18n props 类型
-    ReturnType<typeof mapStateToProps> &//redux store 映射类型
-    ReturnType<typeof mapDispatchToProps>;//redux dispatch 映射类型
+type PropsType = RouteComponentProps & // react-router 路由props类型
+    WithTranslation & // i18n props类型
+    ReturnType<typeof mapStateToProps> & // redux store 映射类型
+    ReturnType<typeof mapDispatchToProps>; // redux dispatch 映射类型
 
-class HeaderComponent extends React.Component<PropsType>{
+// interface State extends LanguageState {}
+
+class HeaderComponent extends React.Component<PropsType> {
+    handleStoreChange = () => {
+        const storeState = store.getState();
+        this.setState({
+            language: storeState.language,
+            languageList: storeState.languageList,
+        });
+    };
 
     menuClickHandler = (e) => {
         console.log(e);
         if (e.key === "new") {
             // 处理新语言添加action
             this.props.addLanguage("新语言", "new_lang");
-
-
         } else {
-            this.props.changeLanguage(e.key)
+            this.props.changeLanguage(e.key);
         }
     };
 
@@ -79,8 +88,12 @@ class HeaderComponent extends React.Component<PropsType>{
                             {this.props.language === "zh" ? "中文" : "English"}
                         </Dropdown.Button>
                         <Button.Group className={styles["button-group"]}>
-                            <Button onClick={() => navigate("/register")}>{t("header.register")}</Button>
-                            <Button onClick={() => navigate("/signin")}>{t("header.signin")}</Button>
+                            <Button onClick={() => navigate("/register")}>
+                                {t("header.register")}
+                            </Button>
+                            <Button onClick={() => navigate("/signin")}>
+                                {t("header.signin")}
+                            </Button>
                         </Button.Group>
                     </div>
                 </div>
@@ -123,5 +136,7 @@ class HeaderComponent extends React.Component<PropsType>{
     }
 }
 
-export const Header = connect(mapStateToProps, mapDispatchToProps)(
-    withTranslation()(withRouter(HeaderComponent)));
+export const Header = connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(withTranslation()(withRouter(HeaderComponent)));
