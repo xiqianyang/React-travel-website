@@ -19,7 +19,7 @@ import { RootState } from "../../redux/store";
 const mapStateToProps = (state: RootState) => {
     return {
         language: state.language,
-        languageList: state.languageList,
+        languageList: state.language.languageList,
     };
 };
 
@@ -48,7 +48,7 @@ class HeaderComponent extends React.Component<PropsType> {
         const storeState = store.getState();
         this.setState({
             language: storeState.language,
-            languageList: storeState.languageList,
+            languageList: storeState.language.languageList,
         });
     };
 
@@ -85,7 +85,7 @@ class HeaderComponent extends React.Component<PropsType> {
                             }
                             icon={<GlobalOutlined />}
                         >
-                            {this.props.language === "zh" ? "中文" : "English"}
+                            {this.props.language.language === "zh" ? "中文" : "English"}
                         </Dropdown.Button>
                         <Button.Group className={styles["button-group"]}>
                             <Button onClick={() => navigate("/register")}>
